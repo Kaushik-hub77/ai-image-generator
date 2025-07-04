@@ -1,76 +1,3 @@
-// import React, { useState } from "react";
-// import "./index.css";
-// export default function ImageTransformer() {
-//   const [prompt, setPrompt] = useState("");
-//   const [resultImage, setResultImage] = useState(null);
-//   const [loading, setLoading] = useState(false);
-//   const handleSubmit = async (e)=>{
-//     e.preventDefault();
-//     if (!prompt) {
-//       alert("Prompt is required!");
-//       return;
-//     }
-//     try {
-//       setLoading(true);
-//       const res = await fetch("http://localhost:3001/transform", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ prompt }),
-//       });
-//       const data = await res.json();
-//       console.log("Response from backend:", data);
-//       if (!res.ok || !data.output) {
-//         alert("Error: " + (data?.error || "No image received"));
-//         return;
-//       }
-//       const outputImage = data.output.startsWith("data:image/")
-//         ? data.output
-//         : `data:image/png;base64,${data.output}`;
-//       setResultImage(outputImage);
-//     } catch (err) {
-//       console.error("Error transforming image:", err);
-//       alert("Network or server error. Please try again.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
-//   return (
-//     <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
-//       <h2 className="text-xl font-bold mb-4 text-center">AI Image Generator</h2>
-//       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-//         <input
-//           type="text"
-//           placeholder="Enter your prompt (e.g., 'a futuristic city at night')"
-//           value={prompt}
-//           onChange={(e) => setPrompt(e.target.value)}
-//           className="p-2 border rounded"
-//         />
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded"
-//         >
-//           {loading ? "Generating..." : "Generate"}
-//         </button>
-//       </form>
-//       {resultImage && (
-//         <div className="mt-6 border-t pt-4">
-//           <p className="font-semibold mb-2 text-center">Generated Image:</p>
-//           <img
-//             src={resultImage}
-//             alt="AI Result"
-//             className="rounded w-full border border-green-400"
-//             style={{ maxHeight: "400px", objectFit: "contain" }}
-//           />
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-
 import React, { useState, useEffect } from "react";
 import { Camera, Sparkles, Download, Copy, Wand2, Zap, Palette } from "lucide-react";
 
@@ -83,6 +10,7 @@ export default function ImageTransformer() {
   const [imageHistory, setImageHistory] = useState([]);
   const [selectedStyle, setSelectedStyle] = useState("realistic");
   const [animationKey, setAnimationKey] = useState(0);
+
 
   const styles = [
     { id: "realistic", name: "Realistic", icon: "📸" },
@@ -107,6 +35,8 @@ export default function ImageTransformer() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -167,7 +97,7 @@ export default function ImageTransformer() {
 
   const internalCSS = `
     .gradient-bg {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2D1B69 0%, #11082A 100%);
       min-height: 100vh;
       position: relative;
       overflow: hidden;
@@ -181,9 +111,9 @@ export default function ImageTransformer() {
       right: 0;
       bottom: 0;
       background: 
-        radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+        radial-gradient(circle at 20% 20%, rgba(75, 39, 148, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 69, 190, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(88, 28, 135, 0.2) 0%, transparent 50%);
       animation: float 6s ease-in-out infinite;
     }
 
@@ -193,19 +123,19 @@ export default function ImageTransformer() {
     }
 
     .glass-card {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(75, 39, 148, 0.15);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(139, 69, 190, 0.3);
+      box-shadow: 0 8px 32px rgba(45, 27, 105, 0.3);
     }
 
     .neon-glow {
-      box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+      box-shadow: 0 0 20px rgba(139, 69, 190, 0.6);
       transition: all 0.3s ease;
     }
 
     .neon-glow:hover {
-      box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+      box-shadow: 0 0 30px rgba(139, 69, 190, 0.9);
     }
 
     .pulse-animation {
@@ -228,20 +158,29 @@ export default function ImageTransformer() {
     }
 
     .typing-animation {
-      border-right: 2px solid #667eea;
+      border-right: 2px solid #8B45BE;
       animation: typing 1s steps(20) infinite;
     }
 
     @keyframes typing {
       from { border-color: transparent; }
-      to { border-color: #667eea; }
+      to { border-color: #8B45BE; }
+    }
+
+    .fade-in-out {
+      animation: fadeInOut 3s ease-in-out infinite;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
 
     .spinner {
       width: 40px;
       height: 40px;
       border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid #667eea;
+      border-top: 4px solid #8B45BE;
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
@@ -258,11 +197,11 @@ export default function ImageTransformer() {
 
     .style-pill:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 15px rgba(45, 27, 105, 0.4);
     }
 
     .style-pill.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #8B45BE, #2D1B69);
       color: white;
       transform: scale(1.05);
     }
@@ -273,7 +212,7 @@ export default function ImageTransformer() {
 
     .image-hover:hover {
       transform: scale(1.02);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 30px rgba(45, 27, 105, 0.4);
     }
 
     .floating-icons {
@@ -311,7 +250,9 @@ export default function ImageTransformer() {
           <div className="text-center mb-12">
             <h1 className="text-6xl font-bold text-white mb-4 flex items-center justify-center gap-4">
               <Wand2 className="text-yellow-300" size={60} />
-              AI Image Studio
+              <span className="fade-in-out">
+                AI Image Studio
+              </span>
               <Sparkles className="text-pink-300" size={60} />
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
@@ -353,7 +294,7 @@ export default function ImageTransformer() {
                     placeholder="Describe the image you want to create..."
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
-                    className="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl text-white placeholder-white/60 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 resize-none typing-animation"
+                    className="w-full p-4 bg-white/10 border-2 border-white/20 rounded-xl text-white placeholder-white/60 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-purple-400/50 resize-none typing-animation"
                     rows={3}
                   />
                   <div className="absolute bottom-3 right-3 flex gap-2">
@@ -390,7 +331,7 @@ export default function ImageTransformer() {
                 type="submit"
                 disabled={loading}
                 onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed neon-glow flex items-center justify-center gap-3"
+                className="w-full bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed neon-glow flex items-center justify-center gap-3"
               >
                 {loading ? (
                   <>
