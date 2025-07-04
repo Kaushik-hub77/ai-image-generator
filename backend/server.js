@@ -98,30 +98,30 @@ app.post("/transform", async (req, res) => {
 });
 
 // 🧪 Mock test endpoint for frontend
-app.post("/mock-transform", async (req, res) => {
-  const prompt = req.body.prompt;
+// app.post("/mock-transform", async (req, res) => {
+//   const prompt = req.body.prompt;
 
-  if (!prompt) return res.status(400).json({ error: "Prompt is required" });
+//   if (!prompt) return res.status(400).json({ error: "Prompt is required" });
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+//   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const colors = ["FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF"];
-  const color = colors[Math.floor(Math.random() * colors.length)];
+//   const colors = ["FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF"];
+//   const color = colors[Math.floor(Math.random() * colors.length)];
 
-  const canvas = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100" height="100" fill="#${color}"/>
-    <text x="50" y="50" font-family="Arial" font-size="8" fill="white" text-anchor="middle" dy=".3em">Generated</text>
-  </svg>`;
+//   const canvas = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+//     <rect width="100" height="100" fill="#${color}"/>
+//     <text x="50" y="50" font-family="Arial" font-size="8" fill="white" text-anchor="middle" dy=".3em">Generated</text>
+//   </svg>`;
 
-  const base64 = Buffer.from(canvas).toString("base64");
-  const dataUri = `data:image/svg+xml;base64,${base64}`;
+//   const base64 = Buffer.from(canvas).toString("base64");
+//   const dataUri = `data:image/svg+xml;base64,${base64}`;
 
-  res.json({
-    output: dataUri,
-    message: `Mock image generated for: "${prompt}"`,
-    model: "mock-model",
-  });
-});
+//   res.json({
+//     output: dataUri,
+//     message: `Mock image generated for: "${prompt}"`,
+//     model: "mock-model",
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`✅ Backend running on http://localhost:${PORT}`);

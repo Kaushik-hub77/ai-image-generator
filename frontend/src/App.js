@@ -49,7 +49,7 @@ export default function ImageTransformer() {
       setLoading(true);
       const enhancedPrompt = `${prompt}, ${selectedStyle} style`;
       
-      const res = await fetch("http://localhost:3001/transform", {
+      const res = await fetch("http://localhost:3001/mock-transform", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -373,7 +373,6 @@ export default function ImageTransformer() {
                   </button>
                 </div>
               </div>
-              
               <div className="relative">
                 <img
                   src={resultImage}
